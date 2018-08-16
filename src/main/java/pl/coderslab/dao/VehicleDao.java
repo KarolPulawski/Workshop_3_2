@@ -21,32 +21,42 @@ public class VehicleDao {
 
     public static void save(Vehicle vehicle) throws Exception {
         if (vehicle.getId() == null) {
-            String query = "INSERT INTO vehicle VALUES(null,?,?,?,?,?,?)";
-            List<String> params = new ArrayList<>();
-            params.add(vehicle.getModel());
-            params.add(vehicle.getBrand());
-            params.add(vehicle.getProductionYear());
-            params.add(vehicle.getRegistrationNumber());
-            params.add(String.valueOf(vehicle.getTechnicalReviewDate()));
-            params.add(String.valueOf(vehicle.getCustomer().getId()));
-            Integer id = DbService.insertIntoDatabase(query, params);
-            vehicle.setId(id);
+            add(vehicle);
         } else {
-            String query = "UPDATE vehicle SET model = ?, brand = ?, " +
-                    "productionYear = ?, registrationNumber = ?, " +
-                    "technicalReviewDate = ?, customer_id = ? " +
-                    "WHERE id = ? ";
-            List<String> params = new ArrayList<>();
-            params.add(vehicle.getModel());
-            params.add(vehicle.getBrand());
-            params.add(vehicle.getProductionYear());
-            params.add(vehicle.getRegistrationNumber());
-            params.add(String.valueOf(vehicle.getTechnicalReviewDate()));
-            params.add(String.valueOf(vehicle.getCustomer().getId()));
-            params.add(String.valueOf(vehicle.getId()));
-            DbService.executeQuery(query, params);
+            update(vehicle);
+            return;
         }
     }
+
+    private static void update(Vehicle vehicle) throws Exception {
+        String query = "UPDATE vehicle SET model = ?, brand = ?, " +
+                "productionYear = ?, registrationNumber = ?, " +
+                "technicalReviewDate = ?, customer_id = ? " +
+                "WHERE id = ? ";
+        List<String> params = new ArrayList<>();
+        params.add(vehicle.getModel());
+        params.add(vehicle.getBrand());
+        params.add(vehicle.getProductionYear());
+        params.add(vehicle.getRegistrationNumber());
+        params.add(String.valueOf(vehicle.getTechnicalReviewDate()));
+        params.add(String.valueOf(vehicle.getCustomer().getId()));
+        params.add(String.valueOf(vehicle.getId()));
+        DbService.executeQuery(query, params);
+    }
+
+    private static void add(Vehicle vehicle) throws Exception {
+        String query = "INSERT INTO vehicle VALUES(null,?,?,?,?,?,?)";
+        List<String> params = new ArrayList<>();
+        params.add(vehicle.getModel());
+        params.add(vehicle.getBrand());
+        params.add(vehicle.getProductionYear());
+        params.add(vehicle.getRegistrationNumber());
+        params.add(String.valueOf(vehicle.getTechnicalReviewDate()));
+        params.add(String.valueOf(vehicle.getCustomer().getId()));
+        Integer id = DbService.insertIntoDatabase(query, params);
+        vehicle.setId(id);
+    }
+
     public static Vehicle loadById(Integer id) throws Exception {
         String query = "SELECT * FROM vehicle WHERE id = ? ";
         List<String> params = new ArrayList<>();
