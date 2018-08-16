@@ -12,6 +12,7 @@
         <th>Responsible</th>
         <th>Vehicle</th>
         <th>Problem description</th>
+        <th>Details</th>
     </tr>
     <c:forEach items="${orderList}" var="order">
         <tr>
@@ -23,11 +24,11 @@
             <td>${order.descriptionProblem}</td>
 
 
-            <%--<td>--%>
-                <%--<form action="/userEdit" method="get">--%>
-                    <%--<button type="submit" name="userId" value="${user.id}" class="btn-link">Edit</button>--%>
-                <%--</form>--%>
-            <%--</td>--%>
+            <td>
+                <form action="/displayDetails" method="post">
+                    <button type="submit" name="orderId" value="${order.id}" class="btn-link">Details</button>
+                </form>
+            </td>
             <%--<td>--%>
                 <%--<form action="/userDelete" method="post">--%>
                     <%--<button type="submit" name="userId" value="${user.id}" class="btn-link">Delete</button>--%>

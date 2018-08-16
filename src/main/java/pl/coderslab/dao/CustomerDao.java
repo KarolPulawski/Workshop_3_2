@@ -75,7 +75,7 @@ public class CustomerDao {
         Customer customer = new Customer();
         customer.setId(Integer.parseInt(row.get("id")));
         customer.setName(row.get("name"));
-        customer.setSurname(row.get("surName"));
+        customer.setSurname(row.get("surname"));
         customer.setBirthday(DateService.dateFromDbString(row.get("birthday")));
         return customer;
     }
