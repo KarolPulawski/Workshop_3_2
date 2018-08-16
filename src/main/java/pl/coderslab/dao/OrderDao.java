@@ -1,7 +1,5 @@
 package pl.coderslab.dao;
 
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
-import pl.coderslab.model.Employee;
 import pl.coderslab.model.Order;
 import pl.coderslab.model.Status;
 import pl.coderslab.service.DateService;
@@ -12,6 +10,18 @@ import java.util.List;
 import java.util.Map;
 
 public class OrderDao {
+
+    public static List<Order> loadAllByStatus(Status status) throws Exception {
+        String query = "SELECT * FROM orders WHERE status = ? ";
+        List<String> params = new ArrayList<>();
+        params.add(status.toString());
+        List<Order> orders = new ArrayList<>();
+        List<Map<String,String>> data = DbService.getData(query, params);
+        for(Map<String, String>row : data) {
+            orders.add(createOrder(row));
+        }
+        return orders;
+    }
 
     public static void delete(Order order) throws Exception {
         String query = "DELETE FROM orders WHERE id = ? ";
