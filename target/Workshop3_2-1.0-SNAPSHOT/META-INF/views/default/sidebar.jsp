@@ -1,15 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <ul class="sidebar navbar-nav">
     <li class="nav-item">
-        <a class="nav-link" href="/panelAdmin">
+        <a class="nav-link" href="/panelEmployee">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Panel admin</span>
+            <span>Employees</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/displayGroup">
+        <a class="nav-link" href="/panelCustomer">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Display all groups</span>
+            <span>Customers</span>
         </a>
     </li>
 

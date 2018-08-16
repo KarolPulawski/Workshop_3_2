@@ -11,6 +11,18 @@ import java.util.Map;
 
 public class OrderDao {
 
+    public static List<Order> loadByEmployeeId(Integer id) throws Exception {
+        String query = "SELECT * FROM orders WHERE employee_id = ? ";
+        List<String> params = new ArrayList<>();
+        params.add(String.valueOf(id));
+        List<Map<String, String>> data = DbService.getData(query, params);
+        List<Order> orders = new ArrayList<>();
+        for(Map<String, String> row : data) {
+            orders.add(createOrder(row));
+        }
+        return orders;
+    }
+
     public static List<Order> loadAllByStatus(Status status) throws Exception {
         String query = "SELECT * FROM orders WHERE status = ? ";
         List<String> params = new ArrayList<>();
