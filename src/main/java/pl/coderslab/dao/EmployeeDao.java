@@ -19,30 +19,39 @@ public class EmployeeDao {
 
     public static void save(Employee employee) throws Exception {
         if(employee.getId() == null) {
-            String query = "INSERT INTO employee VALUES(null,?,?,?,?,?,?)";
-            List<String> params = new ArrayList<>();
-            params.add(employee.getName());
-            params.add(employee.getSurname());
-            params.add(employee.getAddress());
-            params.add(employee.getNumber());
-            params.add(employee.getNote());
-            params.add(String.valueOf(employee.getSalaryPerHour()));
-            Integer id = DbService.insertIntoDatabase(query, params);
-            employee.setId(id);
+            add(employee);
         } else {
-            String query = "UPDATE employee SET name = ?, surname = ?, " +
-                    "address = ?, number = ?, note = ?, salaryPerHour = ? " +
-                    "WHERE id = ?";
-            List<String> params = new ArrayList<>();
-            params.add(employee.getName());
-            params.add(employee.getSurname());
-            params.add(employee.getAddress());
-            params.add(employee.getNumber());
-            params.add(employee.getNote());
-            params.add(String.valueOf(employee.getSalaryPerHour()));
-            params.add(String.valueOf(employee.getId()));
-            DbService.executeQuery(query, params);
+            update(employee);
+            return;
         }
+    }
+
+    private static void update(Employee employee) throws Exception {
+        String query = "UPDATE employee SET name = ?, surname = ?, " +
+                "address = ?, number = ?, note = ?, salaryPerHour = ? " +
+                "WHERE id = ?";
+        List<String> params = new ArrayList<>();
+        params.add(employee.getName());
+        params.add(employee.getSurname());
+        params.add(employee.getAddress());
+        params.add(employee.getNumber());
+        params.add(employee.getNote());
+        params.add(String.valueOf(employee.getSalaryPerHour()));
+        params.add(String.valueOf(employee.getId()));
+        DbService.executeQuery(query, params);
+    }
+
+    private static void add(Employee employee) throws Exception {
+        String query = "INSERT INTO employee VALUES(null,?,?,?,?,?,?)";
+        List<String> params = new ArrayList<>();
+        params.add(employee.getName());
+        params.add(employee.getSurname());
+        params.add(employee.getAddress());
+        params.add(employee.getNumber());
+        params.add(employee.getNote());
+        params.add(String.valueOf(employee.getSalaryPerHour()));
+        Integer id = DbService.insertIntoDatabase(query, params);
+        employee.setId(id);
     }
 
     public static Employee loadById(Integer id) throws Exception{
