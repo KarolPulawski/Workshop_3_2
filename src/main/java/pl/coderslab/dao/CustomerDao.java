@@ -10,6 +10,16 @@ import java.util.Map;
 
 public class CustomerDao {
 
+    public static List<Customer> loadBySurname(String surname) throws Exception {
+        String query = "SELECT * FROM customer WHERE surname LIKE '%"+surname+"%'";
+        List<Customer> customers = new ArrayList<>();
+        List<Map<String, String>> data = DbService.getData(query, null);
+        for(Map<String, String> row : data) {
+            customers.add(createNewCustomer(row));
+        }
+        return customers;
+    }
+
     public static void delete(Customer customer) throws Exception{
         String query = "DELETE FROM customer WHERE id = ?";
         List<String> params = new ArrayList<>();
