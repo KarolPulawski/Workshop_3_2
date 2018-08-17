@@ -11,8 +11,6 @@
         <th>Surname</th>
         <th>Birthday</th>
         <th>Vehicles</th>
-        <th>Orders</th>
-
     </tr>
     <c:forEach items="${customers}" var="customer">
         <tr>
@@ -21,13 +19,8 @@
             <td>${customer.surname}</td>
             <td>${customer.birthday}</td>
             <td>
-                <form action="/panelCustomerVehicles" method="post">
+                <form action="/searchControllerVehicles" method="post">
                     <button type="submit" name="customerId" value="${customer.id}" class="btn-link">Vehicles</button>
-                </form>
-            </td>
-            <td>
-                <form action="/panelCustomerOrders" method="post">
-                    <button type="submit" name="customerId" value="${customer.id}" class="btn-link">Orders</button>
                 </form>
             </td>
         </tr>
