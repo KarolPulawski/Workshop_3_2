@@ -1,15 +1,29 @@
 package pl.coderslab.dao;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
 import pl.coderslab.model.Order;
 import pl.coderslab.model.Status;
 import pl.coderslab.service.DateService;
 import pl.coderslab.service.DbService;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class OrderDao {
+
+    public static List<Order> loadByDateRange(Timestamp dateFrom, Timestamp dateTo) throws Exception {
+        String query = "SELECT * FROM orders " +
+                "WHERE startDate <= '"+dateTo+"' " +
+                "AND startDate >= '" + dateFrom + "'";
+        List<Map<String, String>> data = DbService.getData(query, null);
+        List<Order> orders = new ArrayList<>();
+        for(Map<String, String> row : data) {
+            orders.add(createOrder(row));
+        }
+        return orders;
+    }
 
     public static List<Order> loadByCustomerIdStatus(Integer id, Status status) throws Exception {
         String query = "SELECT DISTINCT * FROM orders " +
