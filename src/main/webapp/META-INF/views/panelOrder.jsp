@@ -10,6 +10,8 @@
         <th>Receive order date</th>
         <th>Responsible</th>
         <th>Vehicle</th>
+        <th>Status</th>
+        <th colspan="2" style="text-align: center">Change status</th>
         <th>Details</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -20,6 +22,17 @@
             <td>${order.receiveDate}</td>
             <td>${order.employee.name}</td>
             <td>${order.vehicle.model}</td>
+            <td>${order.status}</td>
+            <td>
+                <form method="get" action="/panelOrderEditStatus">
+                    <button type="submit" name="orderId" value=${order.id} class="btn-link">Change status</button>
+                </form>
+            </td>
+            <td>
+                <%--<form action="/panelOrderEditStatus" method="post">--%>
+                    <%--<button type="submit" name="orderId" value="${order.id}" class="btn-link">Change status</button>--%>
+                <%--</form>--%>
+            </td>
             <td>
                 <form action="/displayDetails" method="post">
                     <button type="submit" name="orderId" value="${order.id}" class="btn-link">Details</button>
