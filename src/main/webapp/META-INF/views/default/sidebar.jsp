@@ -12,6 +12,12 @@
             <span>Customers</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/panelVehicle">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Vehicles</span>
+        </a>
+    </li>
 
     <%--<li class="nav-item dropdown">--%>
         <%--<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--%>

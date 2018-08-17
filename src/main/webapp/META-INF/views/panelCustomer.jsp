@@ -22,7 +22,7 @@
             <td>${customer.surname}</td>
             <td>${customer.birthday}</td>
             <td>
-                <form action="/panelEmployee" method="post">
+                <form action="/panelCustomerVehicles" method="post">
                     <button type="submit" name="customerId" value="${customer.id}" class="btn-link">Vehicles</button>
                 </form>
             </td>

@@ -11,6 +11,18 @@ import java.util.Map;
 
 public class VehicleDao {
 
+    public static List<Vehicle> loadByCustomerId(Integer id) throws Exception {
+        String query = "SELECT * FROM vehicle WHERE customer_id = ?";
+        List<String> params = new ArrayList<>();
+        params.add(String.valueOf(id));
+        List<Vehicle> vehicles = new ArrayList<>();
+        List<Map<String,String>> data = DbService.getData(query, params);
+        for (Map<String, String> row : data) {
+            vehicles.add(createNewVehicle(row));
+        }
+        return vehicles;
+    }
+
     public static void delete(Vehicle vehicle) throws Exception {
         String query = "DELETE FROM vehicle WHERE id = ?";
         List<String> params = new ArrayList<>();
