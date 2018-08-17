@@ -1,6 +1,7 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.model.Employee;
+import pl.coderslab.model.Status;
 import pl.coderslab.service.DbService;
 
 import java.util.ArrayList;
@@ -8,6 +9,18 @@ import java.util.List;
 import java.util.Map;
 
 public class EmployeeDao {
+
+    public static List<Employee> loadByStatus(Status status) throws Exception {
+        String query = "SELECT DISTINCT employee.* FROM orders " +
+                "INNER JOIN employee on orders.employee_id = employee.id " +
+                "WHERE status = '"+status+"'";
+        List<Map<String, String>> data = DbService.getData(query, null);
+        List<Employee> employees = new ArrayList<>();
+        for(Map<String, String> row : data) {
+            employees.add(createNewEmployee(row));
+        }
+        return employees;
+    }
 
     public static void delete(Employee employee) throws Exception {
         String query = "DELETE FROM employee WHERE id = ? ";

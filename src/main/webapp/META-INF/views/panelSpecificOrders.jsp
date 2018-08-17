@@ -7,6 +7,7 @@
 <table id="table_template">
     <tr>
         <th>Order id</th>
+        <th>Status</th>
         <th>Receive order date</th>
         <th>Start order date</th>
         <th>Responsible</th>
@@ -17,6 +18,7 @@
     <c:forEach items="${orders}" var="order">
         <tr>
             <td>${order.id}</td>
+            <td>${order.status}</td>
             <td>${order.receiveDate}</td>
             <td>${order.startDate}</td>
             <td>${order.employee.name}</td>
@@ -29,12 +31,7 @@
                     <button type="submit" name="orderId" value="${order.id}" class="btn-link">Details</button>
                 </form>
             </td>
-                <%--<td>--%>
-                <%--<form action="/userDelete" method="post">--%>
-                <%--<button type="submit" name="userId" value="${user.id}" class="btn-link">Delete</button>--%>
-                <%--</form>--%>
 
-                <%--</td>--%>
         </tr>
     </c:forEach>
 </table>

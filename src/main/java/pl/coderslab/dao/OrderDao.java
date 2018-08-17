@@ -11,6 +11,20 @@ import java.util.Map;
 
 public class OrderDao {
 
+    public static List<Order> loadByCustomerIdStatus(Integer id, Status status) throws Exception {
+        String query = "SELECT DISTINCT * FROM orders " +
+                "WHERE status = '"+status+"' AND " +
+                "employee_id = ?";
+        List<String> params = new ArrayList<>();
+        params.add(String.valueOf(id));
+        List<Order> orders = new ArrayList<>();
+        List<Map<String,String>> data = DbService.getData(query, params);
+        for(Map<String, String> row : data) {
+            orders.add(createOrder(row));
+        }
+        return orders;
+    }
+
     public static List<Order> loadByVehicleId(Integer id) throws Exception {
         String query = "SELECT * FROM orders WHERE vehicle_id = ?";
         List<String> params = new ArrayList<>();
