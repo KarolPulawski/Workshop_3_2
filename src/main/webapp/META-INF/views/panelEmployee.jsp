@@ -80,7 +80,7 @@
         New employee salary:
         <input type="text" name="employeeSalary">
     </label></br>
-    <input type="submit">
+    <input type="submit" value="Add">
 </form>
 
 

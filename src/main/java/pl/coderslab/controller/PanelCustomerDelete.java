@@ -9,24 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(name = "SearchController", urlPatterns = {"/searchController"})
-public class SearchController extends HttpServlet {
+@WebServlet(name = "PanelCustomerDelete", urlPatterns = {"/panelCustomerDelete"})
+public class PanelCustomerDelete extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String search = request.getParameter("search");
-        List<Customer> customers = null;
+        Integer id = Integer.parseInt(request.getParameter("customerId"));
         try {
-            customers = CustomerDao.loadBySurname(search);
+            Customer customer = new Customer();
+            customer.setId(id);
+            CustomerDao.delete(customer);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        customers.forEach(s -> { System.out.println(s.getId());
-            System.out.println(s.getName());
-            System.out.println(s.getSurname());
-            System.out.println(s.getBirthday());});
-        request.setAttribute("customers", customers);
-        request.getServletContext().getRequestDispatcher("/META-INF/views/panelCustomerSearch.jsp").forward(request, response);
+        response.sendRedirect("/panelCustomer");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

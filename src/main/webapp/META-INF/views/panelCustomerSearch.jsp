@@ -12,8 +12,7 @@
         <th>Birthday</th>
         <th>Vehicles</th>
         <th>Orders</th>
-        <th>Edit</th>
-        <th>Delete</th>
+
     </tr>
     <c:forEach items="${customers}" var="customer">
         <tr>
@@ -31,37 +30,10 @@
                     <button type="submit" name="customerId" value="${customer.id}" class="btn-link">Orders</button>
                 </form>
             </td>
-            <td>
-                <form action="/panelCustomerEdit" method="get">
-                    <button type="submit" name="customerId" value="${customer.id}" class="btn-link">Edit</button>
-                </form>
-            </td>
-            <td>
-                <form action="/panelCustomerDelete" method="post">
-                    <button type="submit" name="customerId" value="${customer.id}" class="btn-link">Delete</button>
-                </form>
-            </td>
         </tr>
     </c:forEach>
 </table>
 
-<h4>Add new customer:</h4>
-
-<form action="/panelCustomerAdd" method="POST">
-    <label>
-        New customer name:
-        <input type="text" name="customerName">
-    </label></br>
-    <label>
-        New customer surname:
-        <input type="text" name="customerSurname">
-    </label></br>
-    <label>
-        New customer birthday:
-        <input type="text" name="customerBirthday">
-    </label></br>
-    <input type="submit" value="Add">
-</form>
 
 
 <%@include file="default/footer.jsp"%>

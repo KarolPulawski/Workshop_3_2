@@ -2,6 +2,7 @@ package pl.coderslab.controller;
 
 import pl.coderslab.dao.CustomerDao;
 import pl.coderslab.model.Customer;
+import pl.coderslab.service.DateService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,24 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(name = "SearchController", urlPatterns = {"/searchController"})
-public class SearchController extends HttpServlet {
+@WebServlet(name = "PanelCustomerAdd", urlPatterns = {"/panelCustomerAdd"})
+public class PanelCustomerAdd extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String search = request.getParameter("search");
-        List<Customer> customers = null;
+        Customer customer = new Customer();
+        customer.setName(request.getParameter("customerName"));
+        customer.setSurname(request.getParameter("customerSurname"));
+        customer.setBirthday(DateService.dateFromString(request.getParameter("customerBirthday")));
         try {
-            customers = CustomerDao.loadBySurname(search);
+            CustomerDao.save(customer);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        customers.forEach(s -> { System.out.println(s.getId());
-            System.out.println(s.getName());
-            System.out.println(s.getSurname());
-            System.out.println(s.getBirthday());});
-        request.setAttribute("customers", customers);
-        request.getServletContext().getRequestDispatcher("/META-INF/views/panelCustomerSearch.jsp").forward(request, response);
+        response.sendRedirect("/panelCustomer");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

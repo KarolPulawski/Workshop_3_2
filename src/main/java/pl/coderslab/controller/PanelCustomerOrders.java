@@ -1,8 +1,6 @@
 package pl.coderslab.controller;
 
-import pl.coderslab.dao.EmployeeDao;
 import pl.coderslab.dao.OrderDao;
-import pl.coderslab.model.Employee;
 import pl.coderslab.model.Order;
 
 import javax.servlet.ServletException;
@@ -13,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "PanelEmployeeController", urlPatterns = {"/panelEmployee"})
-public class PanelEmployeeController extends HttpServlet {
+@WebServlet(name = "PanelCustomerOrders", urlPatterns = {"/panelCustomerOrders"})
+public class PanelCustomerOrders extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer id = Integer.parseInt(request.getParameter("employeeId"));
+        Integer id = Integer.parseInt(request.getParameter("customerId"));
         List<Order> orders = null;
         try {
-            orders = OrderDao.loadByEmployeeId(id);
+            orders = OrderDao.loadByCustomerId(id);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -28,13 +26,6 @@ public class PanelEmployeeController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Employee> employees = null;
-        try {
-            employees = EmployeeDao.loadAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        request.setAttribute("employees", employees);
-        request.getServletContext().getRequestDispatcher("/META-INF/views/panelEmployee.jsp").forward(request, response);
+
     }
 }
