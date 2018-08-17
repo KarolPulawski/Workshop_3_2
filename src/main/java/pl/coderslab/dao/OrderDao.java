@@ -13,6 +13,19 @@ import java.util.Map;
 
 public class OrderDao {
 
+    public static List<Order> loadByDateRangeStatus(Timestamp dateFrom, Timestamp dateTo, Status status) throws Exception {
+        String query = "SELECT * FROM orders " +
+                "WHERE startDate <= '"+dateTo+"' " +
+                "AND startDate >= '"+dateFrom+"' " +
+                "AND status = '"+status+"'";
+        List<Map<String, String>> data = DbService.getData(query, null);
+        List<Order> orders = new ArrayList<>();
+        for(Map<String, String> row : data) {
+            orders.add(createOrder(row));
+        }
+        return orders;
+    }
+
     public static List<Order> loadByDateRange(Timestamp dateFrom, Timestamp dateTo) throws Exception {
         String query = "SELECT * FROM orders " +
                 "WHERE startDate <= '"+dateTo+"' " +

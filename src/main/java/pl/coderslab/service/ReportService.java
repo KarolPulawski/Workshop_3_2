@@ -15,7 +15,8 @@ public class ReportService {
             Integer id = s.getEmployee().getId();
             String name = s.getEmployee().getName();
             String surname = s.getEmployee().getSurname();
-            Integer workingHour = s.getNumberHour(); return new Worker(id, name, surname, workingHour);}).collect(Collectors.toList());
+            Integer workingHour = s.getNumberHour(); return new Worker(id, name, surname, workingHour);})
+                .collect(Collectors.toList());
 
         summarize.forEach(s -> System.out.println(s.getId()));
 
@@ -32,6 +33,18 @@ public class ReportService {
         System.out.println("---");
         finalList.forEach(s -> System.out.println(s.getName()));
         return finalList;
+    }
+
+    public static List<Finance> financePeriod(List<Order> list) {
+        List<Finance> listFinance;
+        listFinance = list.stream().map(v -> {
+            Double priceClient = v.getPriceClient();
+            Double priceParts = v.getPriceParts();
+            Double priceEmployee = v.getPriceEmployee();
+            Integer workingHour = v.getNumberHour();
+            return new Finance(priceClient, priceParts, priceEmployee, workingHour);})
+                .collect(Collectors.toList());
+        return listFinance;
     }
 }
 
